@@ -6,6 +6,12 @@ const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [length, setLength] = useState(2);
+  const [bmi, setBmi] = useState({
+    height: "",
+    weight: "",
+    age: "",
+    bloodtype: "",
+  });
   const question = [
     {
       questiontext: "what is your gender ?",
@@ -42,12 +48,7 @@ const Question = () => {
     },
     {
       questiontext: "",
-      questionoptions: [
-        { q: "Height" },
-        { q: "Weight" },
-        { q: "Age" },
-        { q: "Bloodtype" },
-      ],
+      Bmi: { n: "6" },
       insertvalue: { c: "6" },
     },
     {
@@ -177,6 +178,22 @@ const Question = () => {
       setQuestionCount(0);
     }
   };
+  const handlesubmit = (e) => {
+    e.preventDefault();
+
+    const val = e.target.value;
+    setBmi({
+      ...bmi,
+      [e.target.name]: val,
+    });
+  };
+  const handlebmi = (e, n) => {
+    setAnswers((current) => [...current, bmi]);
+    setQuestionCount(n);
+    if (questionConut === 19) {
+      setQuestionCount(0);
+    }
+  };
   return (
     <div className="questioncontainer">
       <div className="questionitemscontain">
@@ -204,7 +221,6 @@ const Question = () => {
               question[questionConut].questionoptions.map((que, index) => {
                 return (
                   <div className="inputscontain">
-                    <label htmlFor="">{que.q}</label>
                     <div className="inputsflex">
                       <input
                         placeholder={que.q}
@@ -216,12 +232,51 @@ const Question = () => {
                   </div>
                 );
               })}
-            {question[questionConut].insertvalue && (
-              <div className="buttonsubmit">
+
+            {question[questionConut].insertvalue &&
+              !question[questionConut].Bmi && (
+                <div className="buttonsubmit">
+                  <button
+                    onClick={() =>
+                      inputnext(question[questionConut].insertvalue.c)
+                    }
+                  >
+                    Submit
+                  </button>
+                </div>
+              )}
+            {question[questionConut].Bmi && (
+              <div className="inputscontainer">
+                <input
+                  type="text"
+                  name="height"
+                  placeholder="Height"
+                  value={bmi.height}
+                  onChange={handlesubmit}
+                />
+                <input
+                  type="text"
+                  name="weight"
+                  placeholder="weight"
+                  value={bmi.weight}
+                  onChange={handlesubmit}
+                />
+                <input
+                  type="text"
+                  name="age"
+                  placeholder="Age"
+                  value={bmi.age}
+                  onChange={handlesubmit}
+                />
+                <input
+                  type="text"
+                  name="bloodtype"
+                  placeholder="Blood type"
+                  value={bmi.bloodtype}
+                  onChange={handlesubmit}
+                />
                 <button
-                  onClick={() =>
-                    inputnext(question[questionConut].insertvalue.c)
-                  }
+                  onClick={(e) => handlebmi(e, question[questionConut].Bmi.n)}
                 >
                   Submit
                 </button>

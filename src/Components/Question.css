@@ -5,11 +5,15 @@
   justify-content: center;
   align-items: center;
 }
+.questiontitle h2 {
+  font-size: 20px;
+  width: 70%;
+}
 .questionitemscontain {
   display: flex;
   background-color: rgb(255, 255, 255);
   height: 300px;
-  width: 650px;
+  width: 700px;
   border-radius: 15px;
   box-shadow: -3px 4px 9px -1px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -3px 4px 9px -1px rgba(0, 0, 0, 0.75);
@@ -45,6 +49,9 @@
   flex-direction: column;
   height: 100px;
   width: 100%;
+  position: absolute;
+  top: 42%;
+  left: 00%;
 }
 .inputsflex {
   display: flex;
@@ -52,10 +59,13 @@
 }
 .inputscontain input {
   background-color: white;
-  border: none;
+  border: 2px solid gray;
+  padding: 5px 25px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 15px;
 }
 .questiontitle {
   width: 100%;
@@ -79,6 +89,8 @@
   padding: 5px 20px;
   border-radius: 15px;
   font-size: 18px;
+  border: 0.5px solid gray;
   top: 60%;
-  left: 50%;
+  cursor: pointer;
+  left: 47%;
 }
