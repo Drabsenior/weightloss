@@ -188,7 +188,13 @@ const Question = () => {
     });
   };
   const handlebmi = (e, n) => {
-    setAnswers((current) => [...current, bmi]);
+    setAnswers((current) => [
+      ...current,
+      bmi.age,
+      bmi.bloodtype,
+      bmi.height,
+      bmi.weight,
+    ]);
     setQuestionCount(n);
     if (questionConut === 19) {
       setQuestionCount(0);
