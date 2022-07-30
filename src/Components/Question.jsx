@@ -1,7 +1,8 @@
-import { type } from "@testing-library/user-event/dist/type";
 import React, { useEffect, useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
+import workout from "../assets/workoutplan/Workoutplan.pdf";
+import { BsDownload } from "react-icons/bs";
 const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -291,13 +292,27 @@ const Question = () => {
           </>
         ) : (
           <div className="answershare">
-            {answers.map((answer) => {
-              return (
-                <ul>
-                  <li>{answer}</li>
-                </ul>
-              );
-            })}
+            <h2>You are finished</h2>
+            <span>Download your plan</span>
+            <div className="downloadtitle">
+              <a href={workout} download>
+                Download
+              </a>
+            </div>
+            <div className="downloadicon">
+              <BsDownload color="white" />
+            </div>
+            <br />
+
+            <div className="answercontainer">
+              {answers.map((answer) => {
+                return (
+                  <ul>
+                    <li> - {answer}</li>
+                  </ul>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

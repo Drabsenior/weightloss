@@ -19,8 +19,45 @@
   -webkit-box-shadow: -3px 4px 9px -1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -3px 4px 9px -1px rgba(0, 0, 0, 0.75);
 }
+
 .answershare {
   height: 150px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.answershare h2 {
+  font-size: 28px;
+}
+.answershare a {
+  text-decoration: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 30px;
+  background-color: rgba(76, 124, 179, 0.824);
+  color: white;
+  border-radius: 5px;
+}
+.downloadtitle {
+  margin-top: 20px;
+  position: relative;
+}
+.downloadicon {
+  position: absolute;
+  margin-top: 40px;
+  margin-left: 82px;
+}
+.answershare span {
+  font-size: 19px;
+}
+.answercontainer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 180x;
 }
 .answershare ul li {
   display: flex;
@@ -29,6 +66,9 @@
   margin-left: 50px;
   font-size: 17px;
   flex-direction: column;
+}
+.answercontainer {
+  height: 15px;
 }
 .buttoncontainer {
   width: 100%;
