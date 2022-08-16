@@ -1,10 +1,11 @@
 .inputscontainer {
-  margin-top: 15px;
+  margin-top: 5px;
   flex-direction: column;
   display: flex;
   position: absolute;
-  top: 35%;
-  left: 45%;
+  top: 15%;
+  left: 40%;
+  z-index: 1;
 }
 .inputscontainer input {
   padding: 5px 8px;
@@ -12,10 +13,14 @@
   width: 150px !important;
   font-size: 18px;
   border: 1px solid gray;
+  z-index: 1;
 }
 .inputscontainer button {
   padding: 5px 5px;
   font-size: 17px;
   border-radius: 18px;
   border: 0.5px solid gray;
+  z-index: 1;
+  font-family: "Quicksand", sans-serif;
+  cursor: pointer;
 }
