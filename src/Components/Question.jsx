@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
+
 import workout from "../assets/workoutplan/Workoutplan.pdf";
 import { BsDownload } from "react-icons/bs";
+import { BiArrowBack } from "react-icons/bi";
 const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [pathQuestion, setPathQuestion] = useState([]);
   const [length, setLength] = useState(2);
   const [bmi, setBmi] = useState({
     height: "",
@@ -412,14 +415,20 @@ const Question = () => {
     },
   ];
   const inputRef = useRef(null);
+  const backbutton = () => {
+    if (questionConut > 0) {
+      setQuestionCount(questionConut - 1);
+    }
+  };
   const nextquestion = (num, answer, que) => {
     setQuestionCount(num);
     console.log(typeof question);
-
+    setPathQuestion((current) => [...current, num]);
     setAnswers((current) => [...current, { [que]: answer }]);
     {
       console.log(answers);
       console.log(questionConut);
+      console.log(pathQuestion);
     }
   };
 
@@ -476,17 +485,9 @@ const Question = () => {
 
             <div className="questiontitle">
               <h2>{question[questionConut].questiontext}</h2>
-              {/* <button
-                onClick={() =>
-                  nextquestion(
-                    ans.next,
-                    ans.answerText,
-                    question[questionConut].questiontext
-                  )
-                }
-              >
-                back
-              </button> */}
+              <button className="backbtn" onClick={() => backbutton()}>
+                <BiArrowBack size={40} color={"white"} />
+              </button>
             </div>
             <div className="buttoncontainer">
               {question[questionConut].answeroptions &&
