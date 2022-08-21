@@ -417,14 +417,21 @@ const Question = () => {
   const inputRef = useRef(null);
   const backbutton = () => {
     if (questionConut > 0) {
-      setQuestionCount(questionConut - 1);
+      const ind = pathQuestion.indexOf(questionConut) - 1;
+      if (ind > -1) {
+        setQuestionCount(pathQuestion[ind]);
+      } else {
+        setQuestionCount(0);
+      }
+      console.log(ind);
     }
   };
   const nextquestion = (num, answer, que) => {
     setQuestionCount(num);
-    console.log(typeof question);
     setPathQuestion((current) => [...current, num]);
-    setAnswers((current) => [...current, { [que]: answer }]);
+
+    setAnswers((current) => [...new Set(current), { [que]: answer }]);
+
     {
       console.log(answers);
       console.log(questionConut);
@@ -433,6 +440,8 @@ const Question = () => {
   };
 
   const inputnext = (n, i) => {
+    setPathQuestion((current) => [...current, n]);
+
     setAnswers((current) => [...current, { months: inputRef.current.value }]);
     setQuestionCount(n);
     if (questionConut === 23) {
@@ -450,6 +459,8 @@ const Question = () => {
     console.log(answers);
   };
   const handlebmi = (e, n) => {
+    setPathQuestion((current) => [...current, n]);
+
     setAnswers((current) => [
       ...current,
       { age: bmi.age },
