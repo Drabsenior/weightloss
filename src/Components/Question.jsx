@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
-
+import Lg from "../assets/images/lg.png";
 import workout from "../assets/workoutplan/Workoutplan.pdf";
 import { BsDownload } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
@@ -416,12 +416,13 @@ const Question = () => {
   ];
   const inputRef = useRef(null);
   const backbutton = () => {
-    if (questionConut > 0) {
+    if (questionConut > -1) {
       const ind = pathQuestion.indexOf(questionConut) - 1;
       if (ind > -1) {
         setQuestionCount(pathQuestion[ind]);
       } else {
         setQuestionCount(0);
+        setPathQuestion([]);
       }
       console.log(ind);
     }
@@ -499,6 +500,7 @@ const Question = () => {
               <button className="backbtn" onClick={() => backbutton()}>
                 <BiArrowBack size={40} color={"white"} />
               </button>
+              <img className="lglogobilli" src={Lg} alt="" />
             </div>
             <div className="buttoncontainer">
               {question[questionConut].answeroptions &&
