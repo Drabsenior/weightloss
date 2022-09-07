@@ -18,7 +18,7 @@ const Question = () => {
   });
   const question = [
     {
-      questiontext: "ጾታ ምንድን ነው?",
+      questiontext: "ጾታዎ ምንድን ነው?",
       answeroptions: [
         {
           answerText: "ወ",
@@ -95,7 +95,7 @@ const Question = () => {
       answeroptions: [
         {
           answerText: "ከ 4 ወር በላይ",
-          next: "4",
+          next: "5",
           icon: "https://img.icons8.com/fluency/344/giving-birth.png",
         },
         {
