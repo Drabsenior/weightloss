@@ -8,6 +8,10 @@
   align-items: center;
   z-index: -1;
 }
+.inputscontainer {
+  margin-top: 24px;
+  margin-left: 15px;
+}
 .backbtn {
   position: absolute;
   top: 10px;
