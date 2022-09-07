@@ -21,12 +21,12 @@ const Question = () => {
       questiontext: "ጾታዎ ምንድን ነው?",
       answeroptions: [
         {
-          answerText: "ወ",
+          answerText: "ሴ",
           next: "1",
           icon: "https://img.icons8.com/bubbles/344/female.png",
         },
         {
-          answerText: "ሴ",
+          answerText: "ወ",
           next: "6",
           icon: "https://img.icons8.com/bubbles/344/male.png",
         },
@@ -45,7 +45,7 @@ const Question = () => {
         },
         {
           answerText: "አይ",
-          next: "5",
+          next: "6",
           icon: "https://img.icons8.com/external-bearicons-flat-bearicons/344/external-No-yes-or-no-bearicons-flat-bearicons.png",
         },
       ],
@@ -477,7 +477,7 @@ const Question = () => {
 
     setAnswers((current) => [...current, { months: inputRef.current.value }]);
     setQuestionCount(n);
-    if (questionConut === 15) {
+    if (questionConut === 14) {
       setQuestionCount(0);
     }
   };
@@ -492,8 +492,6 @@ const Question = () => {
     console.log(answers);
   };
   const handlebmi = (e, n) => {
-    setPathQuestion((current) => [...current, n]);
-
     setAnswers((current) => [
       ...current,
       { age: bmi.age },
@@ -501,7 +499,11 @@ const Question = () => {
       { height: bmi.height },
       { weight: bmi.weight },
     ]);
-    const Bmi = (bmi.weight / bmi.height) * 2;
+    setPathQuestion((current) => [...current, n]);
+
+    const bmiheight = bmi.height * bmi.height;
+
+    const Bmi = bmi.weight / bmiheight;
     if (Bmi < 18.5) {
       setAnswers((current) => [...current, { bmi: "underweight" }]);
     } else if (18.5 < Bmi < 24.9) {
@@ -512,8 +514,8 @@ const Question = () => {
       setAnswers((current) => [...current, { bmi: "obese" }]);
     }
     setQuestionCount(n);
-    if (questionConut === 15) {
-      setQuestionCount(0);
+    if (questionConut === 14 || Bmi < 18) {
+      setQuestionCount(15);
     }
   };
   return (
