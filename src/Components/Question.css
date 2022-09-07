@@ -23,12 +23,12 @@
   width: 55px;
 }
 .questiontitle h2 {
-  font-size: 23px;
+  font-size: 28px;
   width: 70%;
-  font-family: "Quicksand", sans-serif;
+  /* font-family: "Quicksand", sans-serif; */
   font-family: arial;
   color: white;
-  -webkit-text-stroke: 0.8px rgb(0, 0, 0);
+  -webkit-text-stroke: 0.1px rgb(45, 40, 40);
 }
 .questionitemscontain {
   display: flex;
@@ -172,7 +172,7 @@
   padding: 0px 10px;
   width: 190px;
   border: none;
-  height: 35px;
+  height: fit-content;
   border-radius: 25px;
   font-size: 18px;
   cursor: pointer;
