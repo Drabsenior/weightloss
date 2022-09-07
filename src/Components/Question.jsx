@@ -132,7 +132,7 @@ const Question = () => {
       Bmi: { n: "7" },
       insertvalue: { c: "7" },
       backimage:
-        "https://www.diabetes.co.uk/wp-content/uploads/2019/01/iStock-528072248.jpg",
+        "https://www.medicaldevice-network.com/wp-content/uploads/sites/23/2021/09/shutterstock_765689137-1038x720.jpg",
     },
     {
       questiontext: "የሰውነት ቅርጽ ?",
