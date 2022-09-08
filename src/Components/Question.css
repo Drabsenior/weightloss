@@ -12,6 +12,10 @@
   margin-top: 24px;
   margin-left: 15px;
 }
+.inputscontainer button {
+  color: blue;
+  font-weight: bold;
+}
 .backbtn {
   position: absolute;
   top: 10px;
@@ -130,10 +134,10 @@
 .questionitemscontain input {
   display: flex;
   height: 20px;
-  background-color: transparent;
+  background-color: aliceblue;
   width: 80px;
   font-family: "Quicksand", sans-serif;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   font-weight: bold;
   outline: none;
   border: 1px solid white;

@@ -492,30 +492,32 @@ const Question = () => {
     console.log(answers);
   };
   const handlebmi = (e, n) => {
-    setAnswers((current) => [
-      ...current,
-      { age: bmi.age },
-      { bloodtype: bmi.bloodtype },
-      { height: bmi.height },
-      { weight: bmi.weight },
-    ]);
-    setPathQuestion((current) => [...current, n]);
+    if (bmi.age || bmi.height || bmi.bloodtype || bmi.weight) {
+      setAnswers((current) => [
+        ...current,
+        { age: bmi.age },
+        { bloodtype: bmi.bloodtype },
+        { height: bmi.height },
+        { weight: bmi.weight },
+      ]);
+      setPathQuestion((current) => [...current, n]);
 
-    const bmiheight = bmi.height * bmi.height;
+      const bmiheight = bmi.height * bmi.height;
 
-    const Bmi = bmi.weight / bmiheight;
-    if (Bmi < 18.5) {
-      setAnswers((current) => [...current, { bmi: "underweight" }]);
-    } else if (18.5 < Bmi < 24.9) {
-      setAnswers((current) => [...current, { bmi: "normal" }]);
-    } else if (25 < Bmi < 29.9) {
-      setAnswers((current) => [...current, { bmi: "overweight" }]);
-    } else if (30 < Bmi) {
-      setAnswers((current) => [...current, { bmi: "obese" }]);
-    }
-    setQuestionCount(n);
-    if (questionConut === 14 || Bmi < 18) {
-      setQuestionCount(15);
+      const Bmi = bmi.weight / bmiheight;
+      if (Bmi < 18.5) {
+        setAnswers((current) => [...current, { bmi: "underweight" }]);
+      } else if (18.5 < Bmi < 24.9) {
+        setAnswers((current) => [...current, { bmi: "normal" }]);
+      } else if (25 < Bmi < 29.9) {
+        setAnswers((current) => [...current, { bmi: "overweight" }]);
+      } else if (30 < Bmi) {
+        setAnswers((current) => [...current, { bmi: "obese" }]);
+      }
+      setQuestionCount(n);
+      if (questionConut === 14 || Bmi < 18) {
+        setQuestionCount(15);
+      }
     }
   };
   return (
@@ -589,27 +591,31 @@ const Question = () => {
             {question[questionConut].Bmi && (
               <div className="inputscontainer">
                 <input
-                  type="text"
+                  type="number"
                   name="height"
                   placeholder="Height"
+                  required
                   value={bmi.height}
                   onChange={handlesubmit}
                 />
                 <input
-                  type="text"
+                  required
+                  type="number"
                   name="weight"
                   placeholder="weight"
                   value={bmi.weight}
                   onChange={handlesubmit}
                 />
                 <input
-                  type="text"
+                  required
+                  type="number"
                   name="age"
                   placeholder="Age"
                   value={bmi.age}
                   onChange={handlesubmit}
                 />
                 <input
+                  required
                   type="text"
                   name="bloodtype"
                   placeholder="Blood type"
@@ -639,6 +645,7 @@ const Question = () => {
             <br />
 
             <div className="answercontainer">
+              {console.log(answers)}
               {answers.map((key, value) => {
                 return (
                   <ul>
