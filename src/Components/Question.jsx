@@ -360,9 +360,7 @@ const Question = () => {
     //   ],
     //   que: "food",
 
-    //   backimage:
-    //     "https://d18mqtxkrsjgmh.cloudfront.net/public/2021-03/Eating%20More%20Ultraprocessed%20%E2%80%98Junk%E2%80%99%20Food%20Linked%20to%20Higher%20CVD%20Risk.jpeg",
-    // },
+  
     {
       questiontext: "ከዚህ በፊት ለመክሳት ሞክረው ነበረ?",
       answeroptions: [
