@@ -464,6 +464,10 @@ const Question = () => {
     setPathQuestion((current) => [...current, num]);
 
     setAnswers((current) => [...new Set(current), { [que]: answer }]);
+    const obj = {...answers}
+     const arr = []
+     arr.push({obj})
+    console.log(arr)
 
     {
       console.log(answers);
@@ -517,6 +521,7 @@ const Question = () => {
       setQuestionCount(n);
       if (questionConut === 14 || Bmi < 18) {
         setQuestionCount(15);
+        //navigate to some other page
       }
     }
   };
@@ -645,14 +650,17 @@ const Question = () => {
             <br />
 
             <div className="answercontainer">
-              {console.log(answers)}
-              {answers.map((key, value) => {
-                return (
-                  <ul>
-                    <li key={key}> - {value}</li>
-                  </ul>
-                );
-              })}
+              {console.log( answers)}
+              {answers.map((item, index) => (
+              <ul key={index}>
+                {Object.entries(item).map(([key, value]) => (
+                  <li key={key}>
+                    {key}: {value}
+                  </li>
+    ))}
+  </ul>
+))}
+
             </div>
           </div>
         )}
