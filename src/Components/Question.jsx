@@ -82,15 +82,25 @@ const Question = () => {
       const bmiheight = (bmi.height * bmi.height)/10000;
       console.log(bmiheight)
       const Bmi = bmi.weight / bmiheight;
-      console.log(Bmi + 'bmi')
-      if (Bmi < 18.5) {
-        setAnswers((current) => [...current, { bmi: "underweight" }]);
-      } else if (18.5 < Bmi < 24.9) {
-        setAnswers((current) => [...current, { bmi: "normal" }]);
-      } else if (25 < Bmi < 29.9) {
-        setAnswers((current) => [...current, { bmi: "overweight" }]);
-      } else if (30 < Bmi) {
+      console.log(Bmi )
+      // if (Bmi < 18.5) {
+      //   setAnswers((current) => [...current, { bmi: "underweight" }]);
+      // } else if (18.5 < Bmi < 24.9) {
+      //   setAnswers((current) => [...current, { bmi: "normal" }]);
+      // } else if (25 < Bmi < 29.9) {
+      //   setAnswers((current) => [...current, { bmi: "overweight" }]);
+      // } else if (30 < Bmi) {
+      //   setAnswers((current) => [...current, { bmi: "obese" }]);
+      // }
+      if(Bmi < 18.5){
+        setAnswers((current)=>[...current ,{bmi: "underweight"}])
+      }else if( Bmi > 18.5 && Bmi < 24.9){
+        setAnswers((current)=>[...current ,{bmi: "normal"}])
+      }else if(Bmi > 25 && Bmi < 29.9){
+        setAnswers((current)=>[...current ,{bmi: "overweight"}])
+      }else if(Bmi > 30){
         setAnswers((current) => [...current, { bmi: "obese" }]);
+
       }
       setQuestionCount(n);
       if (questionConut === 14 || Bmi < 18) {
