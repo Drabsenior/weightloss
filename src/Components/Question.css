@@ -142,6 +142,19 @@
   outline: none;
   border: 1px solid white;
 }
+.questionitemscontain select {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 8px 6px;
+  background-color: aliceblue;
+  margin-bottom: 10px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: gray;
+
+}
 .inputscontain {
   display: flex;
   justify-content: center;
