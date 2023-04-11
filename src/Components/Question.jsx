@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
 import Lg from "../assets/images/lg.png";
@@ -10,7 +10,6 @@ const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [pathQuestion, setPathQuestion] = useState([]);
-  const [length, setLength] = useState(2);
   const [bmi, setBmi] = useState({
     height: "",
     weight: "",
@@ -42,11 +41,11 @@ const Question = () => {
      arr.push({obj})
     console.log(arr)
 
-    {
-      console.log(answers);
-      console.log(questionConut);
-      console.log(pathQuestion);
-    }
+    // {
+    //   console.log(answers);
+    //   console.log(questionConut);
+    //   console.log(pathQuestion);
+    // }
   };
 
   const inputnext = (n, i) => {
@@ -83,15 +82,7 @@ const Question = () => {
       console.log(bmiheight)
       const Bmi = bmi.weight / bmiheight;
       console.log(Bmi )
-      // if (Bmi < 18.5) {
-      //   setAnswers((current) => [...current, { bmi: "underweight" }]);
-      // } else if (18.5 < Bmi < 24.9) {
-      //   setAnswers((current) => [...current, { bmi: "normal" }]);
-      // } else if (25 < Bmi < 29.9) {
-      //   setAnswers((current) => [...current, { bmi: "overweight" }]);
-      // } else if (30 < Bmi) {
-      //   setAnswers((current) => [...current, { bmi: "obese" }]);
-      // }
+    
       if(Bmi < 18.5){
         setAnswers((current)=>[...current ,{bmi: "underweight"}])
       }else if( Bmi > 18.5 && Bmi < 24.9){
@@ -203,14 +194,6 @@ const Question = () => {
                   value={bmi.age}
                   onChange={handlesubmit}
                 />
-                {/* <input
-                  required
-                  type="text"
-                  
-                  placeholder="Blood type"
-                  value={bmi.bloodtype}
-                  onChange={handlesubmit}
-                /> */}
                    <select value={bmi.bloodtype} name="bloodtype" onChange={handlesubmit}>
                     <option value="O+">O+</option>
                     <option value="O-">O-</option>
