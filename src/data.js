@@ -3,12 +3,12 @@ export const question = [
       questiontext: "ጾታዎ ምንድን ነው?",
       answeroptions: [
         {
-          answerText: "ሴ",
+          answerText: "F",
           next: "1",
           icon: "https://img.icons8.com/bubbles/344/female.png",
         },
         {
-          answerText: "ወ",
+          answerText: "M",
           next: "6",
           icon: "https://img.icons8.com/bubbles/344/male.png",
         },

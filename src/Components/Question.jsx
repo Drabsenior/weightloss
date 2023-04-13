@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useContext, useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
 import Lg from "../assets/images/lg.png";
@@ -6,10 +6,14 @@ import workout from "../assets/workoutplan/Workoutplan.pdf";
 import { BsDownload } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import {question} from '../data'
+import UserContext from "../UserContext";
+import axios from "axios";
 const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
+  const {formData, setFormData} = useContext(UserContext);
   const [answers, setAnswers] = useState([]);
   const [pathQuestion, setPathQuestion] = useState([]);
+  const [mergedData,setMergedData]=useState([])
   const [bmi, setBmi] = useState({
     height: "",
     weight: "",
@@ -31,7 +35,7 @@ const Question = () => {
       console.log(ind);
     }
   };
-  const nextquestion = (num, answer, que) => {
+  const nextquestion = async (num, answer, que) => {
     setQuestionCount(num);
     setPathQuestion((current) => [...current, num]);
 
@@ -39,13 +43,20 @@ const Question = () => {
     const obj = {...answers}
      const arr = []
      arr.push({obj})
-    console.log(arr)
-
-    // {
-    //   console.log(answers);
-    //   console.log(questionConut);
-    //   console.log(pathQuestion);
-    // }
+     console.log(formData)
+     console.log(answers)
+    
+    const splitobj = Object.keys(formData).map((key) => {
+      return { [key]: formData[key] };
+    });
+    const API_ENDPOINT= 'https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi'
+    const merged = [...answers, ...splitobj]
+    setMergedData(merged)
+      
+      axios.post(API_ENDPOINT,mergedData).then(res=>{
+        console.log(res)
+      })
+ 
   };
 
   const inputnext = (n, i) => {
@@ -169,7 +180,7 @@ const Question = () => {
                 </div>
               )}
              {question[questionConut].Bmi && (
-              <div className="inputscontainer">
+              <div className=" z-50 absolute top-[25%] left-[40%] w-48 space-y-4 flex flex-col">
                 <input
                   type="number"
                   name="height"
@@ -177,6 +188,7 @@ const Question = () => {
                   required
                   value={bmi.height}
                   onChange={handlesubmit}
+                  className="!w-full px-2 py-3"
                 />
                 <input
                   required
@@ -185,6 +197,7 @@ const Question = () => {
                   placeholder="weight kg"
                   value={bmi.weight}
                   onChange={handlesubmit}
+                  className="!w-full px-2 py-3"
                 />
                 <input
                   required
@@ -193,8 +206,9 @@ const Question = () => {
                   placeholder="Age"
                   value={bmi.age}
                   onChange={handlesubmit}
+                  className="!w-full px-2 py-3"
                 />
-                   <select value={bmi.bloodtype} name="bloodtype" onChange={handlesubmit}>
+                   <select value={bmi.bloodtype} name="bloodtype" onChange={handlesubmit} >
                     <option value="O+">O+</option>
                     <option value="O-">O-</option>
                     <option value="A+">A+</option>
@@ -206,6 +220,7 @@ const Question = () => {
                    </select>
                 <button
                   onClick={(e) => handlebmi(e, question[questionConut].Bmi.n)}
+                  className="bg-teal-200 rounded-lg w-36 self-center text-lg font-semibold"
                 >
                   Submit
                 </button>
@@ -227,8 +242,8 @@ const Question = () => {
             <br />
 
             <div className="answercontainer">
-              {console.log( answers)}
-              {answers.map((item, index) => (
+              
+              {mergedData.map((item, index) => (
               <ul key={index}>
                 {Object.entries(item).map(([key, value]) => (
                   <li key={key}>
