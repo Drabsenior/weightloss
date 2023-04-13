@@ -52,7 +52,10 @@ const Question = () => {
     const API_ENDPOINT= 'https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi'
     const merged = [...answers, ...splitobj]
     setMergedData(merged)
-      
+      data={
+        gender:"m",
+        
+      }
       axios.post(API_ENDPOINT,mergedData).then(res=>{
         console.log(res)
       })
