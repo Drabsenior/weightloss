@@ -220,7 +220,7 @@ export const question = [
           icon: "https://img.icons8.com/external-bearicons-flat-bearicons/344/external-No-yes-or-no-bearicons-flat-bearicons.png",
         },
       ],
-      que: "health issue",
+      que: "health_issue",
 
       backimage:
         "https://businessmirror.com.ph/wp-content/uploads/2018/12/hf01-121318.jpg",

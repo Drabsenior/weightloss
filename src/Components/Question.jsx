@@ -14,6 +14,7 @@ const Question = () => {
   const [answers, setAnswers] = useState([]);
   const [pathQuestion, setPathQuestion] = useState([]);
   const [mergedData,setMergedData]=useState([])
+  const [data,setData]=useState([])
   const [bmi, setBmi] = useState({
     height: "",
     weight: "",
@@ -43,19 +44,32 @@ const Question = () => {
     const obj = {...answers}
      const arr = []
      arr.push({obj})
-     console.log(formData)
-     console.log(answers)
+    
     
     const splitobj = Object.keys(formData).map((key) => {
       return { [key]: formData[key] };
     });
     const API_ENDPOINT= 'https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi'
     const merged = [...answers, ...splitobj]
-    setMergedData(merged)
+    const newObj = Object.assign({}, ...merged);   
+    setMergedData([newObj])
+    // setData([newObj])
+    // console.log(merged)
+    console.log([newObj])
+    // console.log(mergedData)
+    console.log('question count' + questionConut)
+        if (questionConut > 12) {
+          console.log('true here')
+        try {
+          const response = await axios.post(API_ENDPOINT, [newObj]);
+           console.log(response);
+         } catch (error) {
+          console.error(error);
+          }
+    }
    
-      axios.post(API_ENDPOINT,mergedData).then(res=>{
-        console.log(res)
-      })
+    
+     
  
   };
 
@@ -76,7 +90,6 @@ const Question = () => {
       ...bmi,
       [e.target.name]: val,
     });
-    console.log(answers);
   };
   const handlebmi = (e, n) => {
     if (bmi.age || bmi.height || bmi.bloodtype || bmi.weight) {
@@ -90,9 +103,7 @@ const Question = () => {
       setPathQuestion((current) => [...current, n]);
 
       const bmiheight = (bmi.height * bmi.height)/10000;
-      console.log(bmiheight)
       const Bmi = bmi.weight / bmiheight;
-      console.log(Bmi )
     
       if(Bmi < 18.5){
         setAnswers((current)=>[...current ,{bmi: "underweight"}])
