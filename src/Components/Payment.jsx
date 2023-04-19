@@ -12,6 +12,7 @@ const Payment = () => {
   const [loading, setLoading] = useState(false);
 
   const changeHandler = (e) => {
+    setData(e.target.files[0]);
     const file = e.target.files[0];
     if (!file.type.match(imageMimeType)) {
       alert("Image mime type is not valid");
@@ -27,7 +28,10 @@ const Payment = () => {
     reader.readAsDataURL(file);
   };
   function handleFileChange(event) {
-    setData(event.target.files[0]);
+    // let formData = new FormData();
+    // formData.append("pic1", event.target.myimage.file[0]);
+    // formData.append("topstuff", event.target.topstuff.value);
+    // formData.append("bottomstuff", event.target.bottomstuff.value);
   }
   useEffect(() => {
     let fileReader,
@@ -69,22 +73,42 @@ const Payment = () => {
     //   formData.append("chat_id", CHAT_ID);
     //   formData.append("photo", theImage);
     //   formData.append("caption", "Optional caption for the image");
-    const formData = new FormData();
-    formData.append("file", data);
-    console.log(formData);
+
     try {
-      const response = await axios.post(
-        `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
+      //   const response = await axios.post(
+      //     `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,
+      //     {
+      //       chat_id: CHAT_ID,
+      //       photo: data,
+      //     },
+      //     {
+      //       headers: {
+      //         "Content-Type": "multipart/form-data",
+      //       },
+      //     }
+      //   );
+      const response = await axios.all([
+        axios.post(
+          `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,
+          {
+            chat_id: CHAT_ID,
+            photo: data,
           },
-        }
-      );
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        ),
+        axios.post(
+          `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${name}`
+        ),
+      ]);
       console.log(response.data);
+      alert("sent successfully");
     } catch (error) {
       console.error(error);
+      alert("something went wrong");
     }
 
     // try {
@@ -157,7 +181,7 @@ const Payment = () => {
                   name="file_upload"
                   className="hidden"
                   accept="image/*"
-                  onChange={handleFileChange}
+                  onChange={changeHandler}
                 />
                 {fileDataURL ? (
                   <p className="w-48 mt-7">
