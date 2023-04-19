@@ -2,12 +2,14 @@ import React, {  useContext, useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
 import Lg from "../assets/images/lg.png";
+import Logotrans  from '../assets/images/logotrans.png'
 import workout from "../assets/workoutplan/Workoutplan.pdf";
 import { BsDownload } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import {question} from '../data'
 import UserContext from "../UserContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
   const {formData, setFormData} = useContext(UserContext);
@@ -15,6 +17,7 @@ const Question = () => {
   const [pathQuestion, setPathQuestion] = useState([]);
   const [mergedData,setMergedData]=useState([])
   const [data,setData]=useState([])
+  const navigate = useNavigate()
   const [bmi, setBmi] = useState({
     height: "",
     weight: "",
@@ -32,11 +35,31 @@ const Question = () => {
       } else {
         setQuestionCount(0);
         setPathQuestion([]);
+       
       }
       console.log(ind);
+    
+    }
+    if(questionConut < 1){
+       navigate('/')
+      console.log('soem')
     }
   };
-  const nextquestion = async (num, answer, que) => {
+  const handleConfirmSubmit = async ()=>{
+    const API_ENDPOINT= 'https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi'
+
+       if (questionConut > 12) {
+          console.log('true here')
+        try {
+          const response = await axios.post(API_ENDPOINT, mergedData);
+           console.log(response);
+         } catch (error) {
+          console.error(error);
+          }
+          navigate('/payment')
+    }
+  }
+  const nextquestion =  (num, answer, que) => {
     setQuestionCount(num);
     setPathQuestion((current) => [...current, num]);
 
@@ -49,7 +72,6 @@ const Question = () => {
     const splitobj = Object.keys(formData).map((key) => {
       return { [key]: formData[key] };
     });
-    const API_ENDPOINT= 'https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi'
     const merged = [...answers, ...splitobj]
     const newObj = Object.assign({}, ...merged);   
     setMergedData([newObj])
@@ -58,15 +80,7 @@ const Question = () => {
     console.log([newObj])
     // console.log(mergedData)
     console.log('question count' + questionConut)
-        if (questionConut > 12) {
-          console.log('true here')
-        try {
-          const response = await axios.post(API_ENDPOINT, [newObj]);
-           console.log(response);
-         } catch (error) {
-          console.error(error);
-          }
-    }
+     
    
     
      
@@ -123,12 +137,12 @@ const Question = () => {
     }
   };
   return (
-    <div className="questioncontainer">
+    <div className="questioncontainer text-white">
       <div className="questionitemscontain">
         {questionConut < 15 ? (
           <>
             <img
-              className="questionbackimage"
+              className="questionbackimage brightness-75"
               src={question[questionConut].backimage}
               alt=""
             />
@@ -138,14 +152,15 @@ const Question = () => {
               <button className="backbtn" onClick={() => backbutton()}>
                 <BiArrowBack size={40} color={"white"} />
               </button>
-              <img className="lglogobilli" src={Lg} alt="" />
+              <img className="lglogobilli !w-16 !-ml-8" src={Logotrans} alt="" />
             </div>
-            <div className="buttoncontainer">
+            <div className="buttoncontainer ">
               {question[questionConut].answeroptions &&
                 question[questionConut].answeroptions.map((ans, index) => {
                   return (
                     <>
                       <button
+                        className="!border-white text-lg"
                         onClick={() =>
                           nextquestion(
                             ans.next,
@@ -219,7 +234,7 @@ const Question = () => {
                   onChange={handlesubmit}
                   className="!w-full px-2 py-3"
                 />
-                   <select value={bmi.bloodtype} name="bloodtype" onChange={handlesubmit} >
+                   <select value={bmi.bloodtype} name="bloodtype" onChange={handlesubmit} defaultValue="O+">
                     <option value="O+">O+</option>
                     <option value="O-">O-</option>
                     <option value="A+">A+</option>
@@ -239,8 +254,8 @@ const Question = () => {
             )}
           </>
         ) : (
-          <div className="answershare">
-            <h2>You are finished</h2>
+          <div className=" flex items-center justify-center w-full">
+            {/* <h2>You are finished</h2>
             <span>Download your plan</span>
             <div className="downloadtitle">
               <a href={workout} download>
@@ -250,20 +265,23 @@ const Question = () => {
             <div className="downloadicon">
               <BsDownload color="white" />
             </div>
-            <br />
+            <br /> */}
 
-            <div className="answercontainer">
-              
+            <div className=" flex flex-col w-full px-6 text-gray-500">
+               <button className="backbtn" onClick={() => backbutton()}>
+                <BiArrowBack size={40} color={"white"} />
+              </button>
+               <h2 className="text-xl mb-5">your answers go back to edit</h2>
               {mergedData.map((item, index) => (
-              <ul key={index}>
+              <ul key={index} className="  max-h-72 flex-wrap flex ">
                 {Object.entries(item).map(([key, value]) => (
-                  <li key={key}>
-                    {key}: {value}
+                  <li key={key} className="text-lg ml-8">
+                    - {key}: {value}
                   </li>
     ))}
   </ul>
 ))}
-
+         <button className="bg-green-500 rounded-xl text-lg self-end px-4 py-1 mt-5 text-white" onClick={()=>handleConfirmSubmit()}>Confirm submit</button>
             </div>
           </div>
         )}

@@ -3,12 +3,12 @@ import Question from "./Components/Question";
 import UserInput from "./Components/UserInput";
 import UserContext from "./UserContext";
 import { Route, Routes } from "react-router-dom";
+import Payment from "./Components/Payment";
 
 function App() {
   const [formData,setFormData]=useState({
     firstName:"",
     lastName:"",
-    email:"",
     phone:""
   })
   return (
@@ -21,6 +21,7 @@ function App() {
       <Routes>
       <Route path="/" element={<UserInput/>}/>
       <Route path="/question" element={<Question/>}/>
+      <Route path="/payment" element={<Payment/>}/>
       </Routes>
     </div>
     </UserContext.Provider>
