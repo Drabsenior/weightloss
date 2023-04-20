@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import LoadingSvg from "../assets/svg/loadingio.svg";
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
 const Payment = () => {
@@ -9,7 +9,7 @@ const Payment = () => {
   const [data, setData] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const changeHandler = (e) => {
     setData(e.target.files[0]);
@@ -87,6 +87,7 @@ const Payment = () => {
       //       },
       //     }
       //   );
+      setLoading(true);
       const response = await axios.all([
         axios.post(
           `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,
@@ -106,6 +107,7 @@ const Payment = () => {
       ]);
       console.log(response.data);
       alert("sent successfully");
+      setLoading(false);
     } catch (error) {
       console.error(error);
       alert("something went wrong");
@@ -136,13 +138,20 @@ const Payment = () => {
   };
 
   return (
-    <div className="bg-teal-400 w-screen h-screen ">
+    <div className=" w-screen h-screen bg-hero bg-cover font-thin">
+      {loading ? (
+        <div className="absolute bg-gray-500/50 w-screen h-screen flex justify-center items-center">
+          <img src={LoadingSvg} alt="" />
+        </div>
+      ) : null}
       <div className="flex justify-center items-center w-full h-full">
-        <div className="w-full h-full  md:w-[50%] md:h-auto py-10 bg-white md:rounded-lg">
+        <div
+          className={`w-full h-full  md:w-[38%] md:h-auto py-10 bg-white md:rounded-lg`}
+        >
           <div className="flex items-center justify-center flex-col h-full w-full">
-            <h2 className="text-3xl font-mono mb-9">Payment verification</h2>
+            <h2 className="text-3xl  mb-9">Payment verification</h2>
             <div className="flex self-start px-[10%] text-xl flex-col py-10 w-full flex-wrap">
-              <label htmlFor="name" className="font-semibold">
+              <label htmlFor="name" className="font-thin">
                 Name{" "}
               </label>
               <input
@@ -192,10 +201,12 @@ const Payment = () => {
             </div>
 
             <button
-              className="bg-blue-500 w-[70%] rounded-full text-white text-xl font-semibold mt-6 py-3 "
+              className={`${
+                loading ? "bg-blue-300" : "bg-blue-500"
+              } w-[70%] rounded-full text-white text-xl  mt-6 py-3 font-thin `}
               onClick={() => handleUpload()}
             >
-              Upload
+              {loading ? "Uploading" : "Upload"}
             </button>
           </div>
         </div>

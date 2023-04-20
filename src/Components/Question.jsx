@@ -1,31 +1,30 @@
-import React, {  useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Question.css";
 import { useRef } from "react";
 import Lg from "../assets/images/lg.png";
-import Logotrans  from '../assets/images/logotrans.png'
+import Logotrans from "../assets/images/logotrans.png";
 import workout from "../assets/workoutplan/Workoutplan.pdf";
 import { BsDownload } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
-import {question} from '../data'
+import { question } from "../data";
 import UserContext from "../UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
-  const {formData, setFormData} = useContext(UserContext);
+  const { formData, setFormData } = useContext(UserContext);
   const [answers, setAnswers] = useState([]);
   const [pathQuestion, setPathQuestion] = useState([]);
-  const [mergedData,setMergedData]=useState([])
-  const [data,setData]=useState([])
-  const navigate = useNavigate()
+  const [mergedData, setMergedData] = useState([]);
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [bmi, setBmi] = useState({
     height: "",
     weight: "",
     age: "",
-    bloodtype: "",
+    bloodtype: "O+",
   });
 
-  
   const inputRef = useRef(null);
   const backbutton = () => {
     if (questionConut > -1) {
@@ -35,56 +34,50 @@ const Question = () => {
       } else {
         setQuestionCount(0);
         setPathQuestion([]);
-       
       }
       console.log(ind);
-    
     }
-    if(questionConut < 1){
-       navigate('/')
-      console.log('soem')
+    if (questionConut < 1) {
+      navigate("/");
+      console.log("soem");
     }
   };
-  const handleConfirmSubmit = async ()=>{
-    const API_ENDPOINT= 'https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi'
+  const handleConfirmSubmit = async () => {
+    const API_ENDPOINT =
+      "https://v1.nocodeapi.com/abenezermaru/google_sheets/zCChpcDBGdLqBkTc/addRows?tabId=billi_netsi";
 
-       if (questionConut > 12) {
-          console.log('true here')
-        try {
-          const response = await axios.post(API_ENDPOINT, mergedData);
-           console.log(response);
-         } catch (error) {
-          console.error(error);
-          }
-          navigate('/payment')
+    if (questionConut > 12) {
+      console.log("true here");
+      try {
+        const response = await axios.post(API_ENDPOINT, mergedData);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      navigate("/payment");
     }
-  }
-  const nextquestion =  (num, answer, que) => {
+  };
+  const nextquestion = (num, answer, que) => {
+    console.log(que, answer);
     setQuestionCount(num);
     setPathQuestion((current) => [...current, num]);
 
     setAnswers((current) => [...new Set(current), { [que]: answer }]);
-    const obj = {...answers}
-     const arr = []
-     arr.push({obj})
-    
-    
+    const obj = { ...answers };
+    const arr = [];
+    arr.push({ obj });
+
     const splitobj = Object.keys(formData).map((key) => {
       return { [key]: formData[key] };
     });
-    const merged = [...answers, ...splitobj]
-    const newObj = Object.assign({}, ...merged);   
-    setMergedData([newObj])
+    const merged = [...answers, ...splitobj];
+    const newObj = Object.assign({}, ...merged);
+    setMergedData([newObj]);
     // setData([newObj])
     // console.log(merged)
-    console.log([newObj])
+    console.log([newObj]);
     // console.log(mergedData)
-    console.log('question count' + questionConut)
-     
-   
-    
-     
- 
+    console.log("question count" + questionConut);
   };
 
   const inputnext = (n, i) => {
@@ -92,7 +85,7 @@ const Question = () => {
 
     setAnswers((current) => [...current, { months: inputRef.current.value }]);
     setQuestionCount(n);
-    if (questionConut === 14) {
+    if (questionConut === 15) {
       setQuestionCount(0);
     }
   };
@@ -116,24 +109,25 @@ const Question = () => {
       ]);
       setPathQuestion((current) => [...current, n]);
 
-      const bmiheight = (bmi.height * bmi.height)/10000;
+      const bmiheight = (bmi.height * bmi.height) / 10000;
       const Bmi = bmi.weight / bmiheight;
-    
-      if(Bmi < 18.5){
-        setAnswers((current)=>[...current ,{bmi: "underweight"}])
-      }else if( Bmi > 18.5 && Bmi < 24.9){
-        setAnswers((current)=>[...current ,{bmi: "normal"}])
-      }else if(Bmi > 25 && Bmi < 29.9){
-        setAnswers((current)=>[...current ,{bmi: "overweight"}])
-      }else if(Bmi > 30){
-        setAnswers((current) => [...current, { bmi: "obese" }]);
 
+      if (Bmi < 18.5) {
+        setAnswers((current) => [...current, { bmi: "underweight" }]);
+      } else if (Bmi > 18.5 && Bmi < 24.9) {
+        setAnswers((current) => [...current, { bmi: "normal" }]);
+      } else if (Bmi > 25 && Bmi < 29.9) {
+        setAnswers((current) => [...current, { bmi: "overweight" }]);
+      } else if (Bmi > 30) {
+        setAnswers((current) => [...current, { bmi: "obese" }]);
       }
       setQuestionCount(n);
       if (questionConut === 14 || Bmi < 18) {
         setQuestionCount(15);
         //navigate to some other page
       }
+    } else {
+      alert("input field required");
     }
   };
   return (
@@ -152,7 +146,11 @@ const Question = () => {
               <button className="backbtn" onClick={() => backbutton()}>
                 <BiArrowBack size={40} color={"white"} />
               </button>
-              <img className="lglogobilli !w-16 !-ml-8" src={Logotrans} alt="" />
+              <img
+                className="lglogobilli !w-16 !-ml-8"
+                src={Logotrans}
+                alt=""
+              />
             </div>
             <div className="buttoncontainer ">
               {question[questionConut].answeroptions &&
@@ -205,7 +203,7 @@ const Question = () => {
                   </button>
                 </div>
               )}
-             {question[questionConut].Bmi && (
+            {question[questionConut].Bmi && (
               <div className=" z-50 absolute top-[25%] left-[40%] w-48 space-y-4 flex flex-col">
                 <input
                   type="number"
@@ -234,19 +232,25 @@ const Question = () => {
                   onChange={handlesubmit}
                   className="!w-full px-2 py-3"
                 />
-                   <select value={bmi.bloodtype} name="bloodtype" onChange={handlesubmit} defaultValue="O+">
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                   </select>
+                <select
+                  value={bmi.bloodtype}
+                  name="bloodtype"
+                  onChange={handlesubmit}
+                  defaultValue="O+"
+                  required
+                >
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </select>
                 <button
                   onClick={(e) => handlebmi(e, question[questionConut].Bmi.n)}
-                  className="bg-teal-200 rounded-lg w-36 self-center text-lg font-semibold"
+                  className="bg-blue-500 text-white rounded-full py-1 w-36 self-center text-lg font-semibold"
                 >
                   Submit
                 </button>
@@ -268,20 +272,25 @@ const Question = () => {
             <br /> */}
 
             <div className=" flex flex-col w-full px-6 text-gray-500">
-               <button className="backbtn" onClick={() => backbutton()}>
+              <button className="backbtn" onClick={() => backbutton()}>
                 <BiArrowBack size={40} color={"white"} />
               </button>
-               <h2 className="text-xl mb-5">your answers go back to edit</h2>
+              <h2 className="text-xl mb-5">your answers go back to edit</h2>
               {mergedData.map((item, index) => (
-              <ul key={index} className="  max-h-72 flex-wrap flex ">
-                {Object.entries(item).map(([key, value]) => (
-                  <li key={key} className="text-lg ml-8">
-                    - {key}: {value}
-                  </li>
-    ))}
-  </ul>
-))}
-         <button className="bg-green-500 rounded-xl text-lg self-end px-4 py-1 mt-5 text-white" onClick={()=>handleConfirmSubmit()}>Confirm submit</button>
+                <ul key={index} className="  max-h-72 flex-wrap flex ">
+                  {Object.entries(item).map(([key, value]) => (
+                    <li key={key} className="text-lg ml-8">
+                      - {key}: {value}
+                    </li>
+                  ))}
+                </ul>
+              ))}
+              <button
+                className="bg-green-500 rounded-xl text-lg self-end px-4 py-1 mt-5 text-white"
+                onClick={() => handleConfirmSubmit()}
+              >
+                Confirm submit
+              </button>
             </div>
           </div>
         )}
