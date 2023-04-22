@@ -9,7 +9,7 @@ const Payment = () => {
   const [data, setData] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const changeHandler = (e) => {
     setData(e.target.files[0]);
@@ -27,12 +27,6 @@ const Payment = () => {
     };
     reader.readAsDataURL(file);
   };
-  function handleFileChange(event) {
-    // let formData = new FormData();
-    // formData.append("pic1", event.target.myimage.file[0]);
-    // formData.append("topstuff", event.target.topstuff.value);
-    // formData.append("bottomstuff", event.target.bottomstuff.value);
-  }
   useEffect(() => {
     let fileReader,
       isCancel = false;
@@ -57,36 +51,8 @@ const Payment = () => {
   const handleUpload = async () => {
     const BOT_TOKEN = "6186190625:AAGOUD8OoACmZ2aGF0iMYBabBkeANyzXjIM";
     const CHAT_ID = "2124047667";
-    //    const IMAGE_URL = 'https://www.digitaloutlook.com.au/wp-content/uploads/2017/09/future_payment_methods-compressor-1.jpg';
-
-    // const reader = new FileReader();
-    // reader.readAsBinaryString(data);
-    // reader.onload = async function () {
-    //   const binaryData = reader.result;
-    //   //   const base64String = btoa(binaryData);
-    //   const binaryString = Array.from(new Uint8Array(binaryData.body), (v) =>
-    //     String.fromCharCode(v)
-    //   ).join("");
-    //   console.log(binaryData);
-    //   const theImage = btoa(binaryString);
-    //   const formData = new FormData();
-    //   formData.append("chat_id", CHAT_ID);
-    //   formData.append("photo", theImage);
-    //   formData.append("caption", "Optional caption for the image");
 
     try {
-      //   const response = await axios.post(
-      //     `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,
-      //     {
-      //       chat_id: CHAT_ID,
-      //       photo: data,
-      //     },
-      //     {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //     }
-      //   );
       setLoading(true);
       const response = await axios.all([
         axios.post(
@@ -112,33 +78,10 @@ const Payment = () => {
       console.error(error);
       alert("something went wrong");
     }
-
-    // try {
-    //   console.log("handleUpload called with imageUrl:", imageUrl);
-    //   const imageBlob = dataURItoBlob(imageUrl);
-    //   console.log("imageBlob:", imageBlob);
-    //   const formData = new FormData();
-    //   formData.append("photo", imageBlob, "photo.jpg");
-
-    //   await axios.all([
-    //     axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-    //       chat_id: CHAT_ID,
-    //       photo: formData,
-    //     }),
-    //     axios.post(
-    //       `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${name}`
-    //     ),
-    //   ]);
-
-    //   console.log("Image sent successfully!");
-    //   console.log("formData:", formData);
-    // } catch (error) {
-    //   console.error("Error sending image:", error);
-    // }
   };
 
   return (
-    <div className=" w-screen h-screen bg-hero bg-cover font-thin">
+    <div className=" w-screen h-screen bg-hero bg-cover font-thin text-white overflow-x-hidden">
       {loading ? (
         <div className="absolute bg-gray-500/50 w-screen h-screen flex justify-center items-center">
           <img src={LoadingSvg} alt="" />
@@ -146,10 +89,10 @@ const Payment = () => {
       ) : null}
       <div className="flex justify-center items-center w-full h-full">
         <div
-          className={`w-full h-full  md:w-[38%] md:h-auto py-10 bg-white md:rounded-lg`}
+          className={`w-full h-full  md:w-[38%] md:h-auto py-10  bg-black/20 shadow-2xl  border-2 border-black/5 md:rounded-lg`}
         >
           <div className="flex items-center justify-center flex-col h-full w-full">
-            <h2 className="text-3xl  mb-9">Payment verification</h2>
+            <h2 className="text-3xl  mb-0">Payment verification</h2>
             <div className="flex self-start px-[10%] text-xl flex-col py-10 w-full flex-wrap">
               <label htmlFor="name" className="font-thin">
                 Name{" "}
@@ -158,13 +101,13 @@ const Payment = () => {
                 type="text"
                 placeholder="Abebe kebede"
                 id="name"
-                className="border-2 outline-none rounded-lg px-3 mt-3 w-full py-2"
+                className="outline-none rounded-lg px-3 mt-3 w-full py-2"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />
             </div>
             <div className="max-w-5xl w-[80%] ">
-              <label className="flex justify-center w-full h-auto py-5  items-center px-4 transition bg-white border-2  flex-col border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+              <label className="flex justify-center w-full h-auto py-5  items-center px-4 transition bg-white   flex-col border-gray-300  rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
                 <span className="flex items-center space-x-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +136,7 @@ const Payment = () => {
                   onChange={changeHandler}
                 />
                 {fileDataURL ? (
-                  <p className="w-48 mt-7">
+                  <p className="w-40 mt-7">
                     {<img src={imageUrl} alt="preview" />}
                   </p>
                 ) : null}

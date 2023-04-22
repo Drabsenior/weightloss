@@ -15,21 +15,21 @@ const UserInput = () => {
     }
   };
   return (
-    <div className="bg-hero w-screen h-screen  bg-cover">
-      <div className="flex justify-center items-center h-full max-w-[40%] mx-auto">
+    <div className="bg-hero w-screen h-screen  bg-cover font-thin">
+      <div className="flex justify-center items-center h-full max-w-[35%] mx-auto">
         <form
           action=""
-          className="flex items-center justify-center flex-col  space-y-8  px-10 py-10  bg-teal-400 w-full rounded-lg"
+          className="flex items-center justify-center flex-col  space-y-8  px-10 py-10  bg-black/20 shadow-2xl  border-2 border-black/5 w-full rounded-lg"
           onSubmit={handleSubmit}
         >
-          <h1 className="text-4xl font-semibold  self-start text-yellow-50 ">
+          <h1 className="text-4xl font-thin  text-white  self-center  ">
             Form Data
           </h1>
 
           <input
             type="text"
             placeholder="FirstName"
-            className="px-2 py-2 w-full outline-none "
+            className="px-2 py-2 w-full  outline-none rounded-lg"
             value={formData.firstName}
             onChange={(e) =>
               setFormData({ ...formData, firstName: e.target.value })
@@ -38,7 +38,7 @@ const UserInput = () => {
           <input
             type="text"
             placeholder="LastName"
-            className="px-2 py-2 w-full outline-none "
+            className="px-2 py-2 w-full  outline-none rounded-lg"
             value={formData.lastName}
             onChange={(e) =>
               setFormData({ ...formData, lastName: e.target.value })
@@ -47,14 +47,14 @@ const UserInput = () => {
           <input
             type="number"
             placeholder="Phone"
-            className="px-2 py-2 w-full outline-none "
+            className="px-2 py-2 w-full  outline-none rounded-lg"
             value={formData.phone}
             onChange={(e) =>
               setFormData({ ...formData, phone: e.target.value })
             }
           />
           <button
-            className="bg-blue-500 text-white  px-6 w-44 py-2 rounded-full  text-xl font-semibold"
+            className="bg-blue-500 text-white  w-full py-1.5 rounded-full  text-xl font-thin"
             type="submit"
           >
             Next

@@ -9,7 +9,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { question } from "../data";
 import UserContext from "../UserContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Question = () => {
   const [questionConut, setQuestionCount] = useState(0);
   const { formData, setFormData } = useContext(UserContext);
@@ -73,10 +73,7 @@ const Question = () => {
     const merged = [...answers, ...splitobj];
     const newObj = Object.assign({}, ...merged);
     setMergedData([newObj]);
-    // setData([newObj])
-    // console.log(merged)
     console.log([newObj]);
-    // console.log(mergedData)
     console.log("question count" + questionConut);
   };
 
@@ -99,7 +96,7 @@ const Question = () => {
     });
   };
   const handlebmi = (e, n) => {
-    if (bmi.age || bmi.height || bmi.bloodtype || bmi.weight) {
+    if (bmi.age | bmi.height | bmi.bloodtype | bmi.weight) {
       setAnswers((current) => [
         ...current,
         { age: bmi.age },
@@ -146,11 +143,13 @@ const Question = () => {
               <button className="backbtn" onClick={() => backbutton()}>
                 <BiArrowBack size={40} color={"white"} />
               </button>
-              <img
-                className="lglogobilli !w-16 !-ml-8"
-                src={Logotrans}
-                alt=""
-              />
+              <Link to="/">
+                <img
+                  className="lglogobilli !w-16 !-ml-8"
+                  src={Logotrans}
+                  alt=""
+                />
+              </Link>
             </div>
             <div className="buttoncontainer ">
               {question[questionConut].answeroptions &&
@@ -250,32 +249,22 @@ const Question = () => {
                 </select>
                 <button
                   onClick={(e) => handlebmi(e, question[questionConut].Bmi.n)}
-                  className="bg-blue-500 text-white rounded-full py-1 w-36 self-center text-lg font-semibold"
+                  className="bg-blue-500 text-white rounded-full w-full self-center text-lg font-thin"
                 >
-                  Submit
+                  Next
                 </button>
               </div>
             )}
           </>
         ) : (
           <div className=" flex items-center justify-center w-full">
-            {/* <h2>You are finished</h2>
-            <span>Download your plan</span>
-            <div className="downloadtitle">
-              <a href={workout} download>
-                Download
-              </a>
-            </div>
-            <div className="downloadicon">
-              <BsDownload color="white" />
-            </div>
-            <br /> */}
-
             <div className=" flex flex-col w-full px-6 text-gray-500">
               <button className="backbtn" onClick={() => backbutton()}>
                 <BiArrowBack size={40} color={"white"} />
               </button>
-              <h2 className="text-xl mb-5">your answers go back to edit</h2>
+              <h2 className="text-3xl mb-5 self-center ">
+                The Form you entered
+              </h2>
               {mergedData.map((item, index) => (
                 <ul key={index} className="  max-h-72 flex-wrap flex ">
                   {Object.entries(item).map(([key, value]) => (
@@ -286,7 +275,7 @@ const Question = () => {
                 </ul>
               ))}
               <button
-                className="bg-green-500 rounded-xl text-lg self-end px-4 py-1 mt-5 text-white"
+                className="bg-green-500 rounded-full text-lg self-end px-4 py-1 mt-5 text-white font-thin"
                 onClick={() => handleConfirmSubmit()}
               >
                 Confirm submit
