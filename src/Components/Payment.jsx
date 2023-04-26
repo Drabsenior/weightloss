@@ -50,7 +50,7 @@ const Payment = () => {
 
   const handleUpload = async () => {
     const BOT_TOKEN = "6186190625:AAGOUD8OoACmZ2aGF0iMYBabBkeANyzXjIM";
-    const CHAT_ID = "2124047667";
+    const CHAT_ID = "1905501273";
 
     try {
       setLoading(true);
