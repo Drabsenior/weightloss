@@ -16,7 +16,7 @@ const UserInput = () => {
   };
   return (
     <div className="bg-hero w-screen h-screen  bg-cover font-thin">
-      <div className="flex justify-center items-center h-full max-w-[35%] mx-auto">
+      <div className="flex justify-center items-center max-w-[90%] h-full sm:max-w-[35%] mx-auto">
         <form
           action=""
           className="flex items-center justify-center flex-col  space-y-8  px-10 py-10  bg-black/20 shadow-2xl  border-2 border-black/5 w-full rounded-lg"

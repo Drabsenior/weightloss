@@ -87,7 +87,7 @@ const Payment = () => {
           <img src={LoadingSvg} alt="" />
         </div>
       ) : null}
-      <div className="flex justify-center items-center w-full h-full">
+      <div className="flex justify-center items-center w-full h-full ">
         <div
           className={`w-full h-full  md:w-[38%] md:h-auto py-10  bg-black/20 shadow-2xl  border-2 border-black/5 md:rounded-lg`}
         >
